@@ -1,8 +1,8 @@
-package dev.lazurite.rayon.impl.transporter.impl.pattern;
+package dev.lazurite.transporter.impl.pattern;
 
-import dev.lazurite.rayon.impl.transporter.api.pattern.Pattern;
-import dev.lazurite.rayon.impl.transporter.api.pattern.TypedPattern;
-import dev.lazurite.rayon.impl.transporter.impl.pattern.part.Quad;
+import dev.lazurite.transporter.api.pattern.Pattern;
+import dev.lazurite.transporter.api.pattern.TypedPattern;
+import dev.lazurite.transporter.impl.pattern.part.Quad;
 
 import java.util.List;
 

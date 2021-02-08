@@ -1,6 +1,6 @@
-package dev.lazurite.rayon.impl.transporter.api.event;
+package dev.lazurite.transporter.api.event;
 
-import dev.lazurite.rayon.impl.transporter.api.buffer.PatternBuffer;
+import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.entity.Entity;

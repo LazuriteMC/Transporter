@@ -1,9 +1,8 @@
-package dev.lazurite.rayon.impl.transporter.api;
+package dev.lazurite.transporter.api;
 
-import dev.lazurite.rayon.impl.transporter.api.pattern.Pattern;
-import dev.lazurite.rayon.impl.transporter.api.pattern.TypedPattern;
-import dev.lazurite.rayon.impl.transporter.impl.pattern.BufferEntry;
-import dev.lazurite.rayon.impl.transporter.impl.pattern.QuadConsumer;
+import dev.lazurite.transporter.api.pattern.TypedPattern;
+import dev.lazurite.transporter.impl.pattern.BufferEntry;
+import dev.lazurite.transporter.impl.pattern.QuadConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;

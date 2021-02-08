@@ -1,6 +1,6 @@
-package dev.lazurite.rayon.impl.transporter.impl.buffer;
+package dev.lazurite.transporter.impl.buffer;
 
-import dev.lazurite.rayon.impl.transporter.api.pattern.TypedPattern;
+import dev.lazurite.transporter.api.pattern.TypedPattern;
 
 public class NetworkedPatternBuffer<T> extends AbstractPatternBuffer<T> {
     private boolean dirty;

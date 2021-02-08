@@ -1,9 +1,9 @@
-package dev.lazurite.rayon.impl.transporter.impl.buffer;
+package dev.lazurite.transporter.impl.buffer;
 
 import com.google.common.collect.Lists;
-import dev.lazurite.rayon.impl.transporter.api.buffer.PatternBuffer;
-import dev.lazurite.rayon.impl.transporter.api.pattern.TypedPattern;
-import dev.lazurite.rayon.impl.transporter.impl.pattern.BufferEntry;
+import dev.lazurite.transporter.api.buffer.PatternBuffer;
+import dev.lazurite.transporter.api.pattern.TypedPattern;
+import dev.lazurite.transporter.impl.pattern.BufferEntry;
 
 import java.util.List;
 

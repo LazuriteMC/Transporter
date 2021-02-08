@@ -1,12 +1,12 @@
-package dev.lazurite.rayon.impl.transporter.impl.buffer.packet;
+package dev.lazurite.transporter.impl.buffer.packet;
 
 import com.google.common.collect.Lists;
-import dev.lazurite.rayon.impl.transporter.api.buffer.BufferStorage;
-import dev.lazurite.rayon.impl.transporter.api.event.PatternBufferEvents;
-import dev.lazurite.rayon.impl.transporter.api.pattern.TypedPattern;
-import dev.lazurite.rayon.impl.transporter.impl.buffer.NetworkedPatternBuffer;
-import dev.lazurite.rayon.impl.transporter.impl.pattern.BufferEntry;
-import dev.lazurite.rayon.impl.transporter.impl.pattern.part.Quad;
+import dev.lazurite.transporter.api.buffer.BufferStorage;
+import dev.lazurite.transporter.api.event.PatternBufferEvents;
+import dev.lazurite.transporter.api.pattern.TypedPattern;
+import dev.lazurite.transporter.impl.buffer.NetworkedPatternBuffer;
+import dev.lazurite.transporter.impl.pattern.BufferEntry;
+import dev.lazurite.transporter.impl.pattern.part.Quad;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;

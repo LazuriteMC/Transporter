@@ -1,6 +1,6 @@
-package dev.lazurite.rayon.impl.transporter.api.buffer;
+package dev.lazurite.transporter.api.buffer;
 
-import dev.lazurite.rayon.impl.transporter.api.pattern.TypedPattern;
+import dev.lazurite.transporter.api.pattern.TypedPattern;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;

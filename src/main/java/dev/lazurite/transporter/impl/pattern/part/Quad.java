@@ -1,4 +1,4 @@
-package dev.lazurite.rayon.impl.transporter.impl.pattern.part;
+package dev.lazurite.transporter.impl.pattern.part;
 
 import com.google.common.collect.Lists;
 import net.minecraft.network.PacketByteBuf;
