@@ -1,7 +1,7 @@
-package dev.lazurite.rayon.impl.mixin.transporter;
+package dev.lazurite.transporter.impl.mixin;
 
-import dev.lazurite.rayon.impl.transporter.api.buffer.BufferStorage;
-import dev.lazurite.rayon.impl.transporter.impl.buffer.NetworkedPatternBuffer;
+import dev.lazurite.transporter.api.buffer.BufferStorage;
+import dev.lazurite.transporter.impl.buffer.NetworkedPatternBuffer;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
