@@ -7,6 +7,12 @@ import dev.lazurite.transporter.impl.pattern.BufferEntry;
 
 import java.util.List;
 
+/**
+ * The main implementation of {@link PatternBuffer}. Can't be instantiated
+ * but it contains an implementation of every {@link PatternBuffer} method.
+ * @see NetworkedPatternBuffer
+ * @param <T>
+ */
 public abstract class AbstractPatternBuffer<T> implements PatternBuffer<T> {
     protected final List<BufferEntry<T>> patterns = Lists.newArrayList();
 
@@ -30,11 +36,6 @@ public abstract class AbstractPatternBuffer<T> implements PatternBuffer<T> {
         }
 
         return null;
-    }
-
-    @Override
-    public List<TypedPattern<T>> getAll() {
-        return Lists.newArrayList(patterns);
     }
 
     @Override

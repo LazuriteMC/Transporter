@@ -1,6 +1,7 @@
 package dev.lazurite.transporter;
 
 import dev.lazurite.transporter.api.buffer.BufferStorage;
+import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.impl.buffer.NetworkedPatternBuffer;
 import dev.lazurite.transporter.impl.buffer.packet.TransportBlockBufferC2S;
 import dev.lazurite.transporter.impl.buffer.packet.TransportEntityBufferC2S;
@@ -15,23 +16,24 @@ import net.minecraft.util.math.BlockPos;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * The client and server entrypoint for Transporter. Contains the code
+ * which runs ever tick on the client that is responsible for syncing
+ * {@link PatternBuffer} information to the server.
+ * @see BufferStorage
+ * @see PatternBuffer
+ */
 public class Transporter implements ModInitializer, ClientModInitializer {
     public static final String MODID = "transporter";
     public static final Logger LOGGER = LogManager.getLogger("Transporter");
 
     @Override
     public void onInitialize() {
-        LOGGER.info("That's the trouble with tribbles...");
+        LOGGER.info("Highly illogical.");
 
         ServerPlayNetworking.registerGlobalReceiver(TransportBlockBufferC2S.PACKET_ID, TransportBlockBufferC2S::accept);
         ServerPlayNetworking.registerGlobalReceiver(TransportEntityBufferC2S.PACKET_ID, TransportEntityBufferC2S::accept);
         ServerPlayNetworking.registerGlobalReceiver(TransportItemBufferC2S.PACKET_ID, TransportItemBufferC2S::accept);
-
-//        ServerTickEvents.START_WORLD_TICK.register(world -> {
-//            ((BufferStorage) world).getBlockBuffer().clear();
-//            ((BufferStorage) world).getEntityBuffer().clear();
-//            ((BufferStorage) world).getItemBuffer().clear();
-//        });
     }
 
     @Override

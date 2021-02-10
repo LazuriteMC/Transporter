@@ -1,7 +1,9 @@
 package dev.lazurite.transporter.impl.buffer.packet;
 
 import com.google.common.collect.Lists;
+import dev.lazurite.transporter.Transporter;
 import dev.lazurite.transporter.api.buffer.BufferStorage;
+import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.api.event.PatternBufferEvents;
 import dev.lazurite.transporter.api.pattern.TypedPattern;
 import dev.lazurite.transporter.impl.buffer.NetworkedPatternBuffer;
@@ -19,8 +21,14 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 
+/**
+ * The packet responsible for syncing the block buffer from the client to the server.
+ * @see Transporter#onInitializeClient()
+ * @see PatternBuffer
+ * @see BufferStorage
+ */
 public class TransportBlockBufferC2S {
-    public static final Identifier PACKET_ID = new Identifier("transporter", "transport_block_buffer_c2s");
+    public static final Identifier PACKET_ID = new Identifier(Transporter.MODID, "transport_block_buffer_c2s");
 
     public static void accept(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender sender) {
         List<BufferEntry<BlockPos>> patterns = Lists.newArrayList();

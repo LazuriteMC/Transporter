@@ -1,6 +1,7 @@
 package dev.lazurite.transporter.impl.pattern;
 
 import com.google.common.collect.Lists;
+import dev.lazurite.transporter.api.Disassembler;
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.pattern.part.Quad;
 import net.fabricmc.api.EnvType;
@@ -12,6 +13,13 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
+/**
+ * Another implementation of {@link Pattern} other than {@link BufferEntry}, this class
+ * is used by {@link Disassembler} to capture vertex information and translate it into
+ * a list of {@link Quad}s.
+ * @see Disassembler
+ * @see Quad
+ */
 @Environment(EnvType.CLIENT)
 public class QuadConsumer implements VertexConsumer, Pattern {
     private final List<Quad> quads = Lists.newArrayList();
@@ -48,6 +56,9 @@ public class QuadConsumer implements VertexConsumer, Pattern {
         return this;
     }
 
+    /**
+     * For every four points, create a new {@link Quad} and add it to quads.
+     */
     @Override
     public void next() {
         if (points.size() >= 4) {
@@ -56,19 +67,16 @@ public class QuadConsumer implements VertexConsumer, Pattern {
         }
     }
 
-    public boolean isEmpty() {
-        return this.quads.isEmpty();
-    }
-
-    public Provider asProvider() {
-        return new Provider(this);
-    }
-
     @Override
     public List<Quad> getQuads() {
         return this.quads;
     }
 
+    /**
+     * Simply compares the list of {@link Quad}s to one another.
+     * @param obj the object to compare
+     * @return whether or not the two objects are equivalent
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof QuadConsumer) {
@@ -78,6 +86,16 @@ public class QuadConsumer implements VertexConsumer, Pattern {
         return false;
     }
 
+    public Provider asProvider() {
+        return new Provider(this);
+    }
+
+    /**
+     * In some instances, a {@link VertexConsumerProvider} is required
+     * instead of a {@link VertexConsumer}. In this situation, {@link QuadConsumer#asProvider()}
+     * can be called and one of these objects will be returned containing the original
+     * {@link QuadConsumer}.
+     */
     public static class Provider implements VertexConsumerProvider {
         private final QuadConsumer pattern;
 

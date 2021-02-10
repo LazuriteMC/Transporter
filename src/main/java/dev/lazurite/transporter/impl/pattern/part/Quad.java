@@ -1,11 +1,20 @@
 package dev.lazurite.transporter.impl.pattern.part;
 
 import com.google.common.collect.Lists;
+import dev.lazurite.transporter.api.pattern.Pattern;
+import dev.lazurite.transporter.impl.pattern.BufferEntry;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
+/**
+ * A quad represents a basic quad shape which is what Minecraft uses
+ * when rendering vertex information to the screen. In this way, quads
+ * can be captured from the renderer and stored in a {@link Pattern}.
+ * @see BufferEntry
+ * @see Pattern
+ */
 public class Quad {
     private final Vec3d p1;
     private final Vec3d p2;
