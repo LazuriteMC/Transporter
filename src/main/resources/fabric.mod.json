@@ -3,7 +3,7 @@
   "id": "transporter",
   "version": "${version}",
   "name": "Transporter",
-  "description": "Beam model info to the server",
+  "description": "Beam model info to the server.",
   "authors": [ "The Lazurite Team" ],
 
   "contact": {
@@ -32,6 +32,9 @@
   "suggests": { "flamingo": "*" },
 
   "custom": {
-    "modmenu:api": true
+    "modmenu": {
+      "links": { "modmenu.discord": "https://discord.gg/NNPPHN7b3P" },
+      "badges": [ "library" ]
+    }
   }
 }
