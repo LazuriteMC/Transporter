@@ -5,6 +5,7 @@ import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.api.pattern.TypedPattern;
 import dev.lazurite.transporter.impl.pattern.BufferEntry;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * @param <T>
  */
 public abstract class AbstractPatternBuffer<T> implements PatternBuffer<T> {
-    protected final List<BufferEntry<T>> patterns = Lists.newArrayList();
+    protected final List<BufferEntry<T>> patterns = Collections.synchronizedList(Lists.newArrayList());
 
     @Override
     public boolean put(TypedPattern<T> pattern) {
