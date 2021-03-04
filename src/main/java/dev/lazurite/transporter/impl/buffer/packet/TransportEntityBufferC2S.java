@@ -48,7 +48,7 @@ public class TransportEntityBufferC2S {
 
         server.execute(() -> {
             NetworkedPatternBuffer<Entity> buffer = ((BufferStorage) player.getEntityWorld()).getEntityBuffer();
-            patterns.forEach(buffer::put);
+            patterns.forEach(pattern -> buffer.put(pattern.getIdentifier(), pattern));
             PatternBufferEvents.ENTITY_BUFFER_UPDATE.invoker().onUpdate(buffer);
         });
     }
@@ -58,7 +58,7 @@ public class TransportEntityBufferC2S {
         buf.writeInt(buffer.size());
         System.out.println("SEND ENTITY");
 
-        for (TypedPattern<Entity> pattern : buffer.getAll()) {
+        for (TypedPattern<Entity> pattern : buffer.getAll().values()) {
             buf.writeInt(pattern.getIdentifier().getEntityId());
             buf.writeInt(pattern.getQuads().size());
 

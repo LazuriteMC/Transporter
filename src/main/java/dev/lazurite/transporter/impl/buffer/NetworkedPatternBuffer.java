@@ -1,12 +1,12 @@
 package dev.lazurite.transporter.impl.buffer;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.api.pattern.TypedPattern;
 import dev.lazurite.transporter.impl.mixin.WorldMixin;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  * This is the final implementation of {@link PatternBuffer} which is
@@ -23,16 +23,16 @@ public class NetworkedPatternBuffer<T> extends AbstractPatternBuffer<T> {
      * @return whether or not it was successful or if there was a duplicate
      */
     @Override
-    public boolean put(TypedPattern<T> pattern) {
-        return setDirty(super.put(pattern));
+    public boolean put(T object, TypedPattern<T> pattern) {
+        return setDirty(super.put(object, pattern));
     }
 
     /**
      * Gets every entry in the buffer.
      * @return the entire buffer
      */
-    public List<TypedPattern<T>> getAll() {
-        return Lists.newArrayList(patterns);
+    public Map<T, TypedPattern<T>> getAll() {
+        return Maps.newHashMap(patterns);
     }
 
     /**

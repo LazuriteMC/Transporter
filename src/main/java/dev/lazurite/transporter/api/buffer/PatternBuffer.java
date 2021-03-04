@@ -52,10 +52,11 @@ public interface PatternBuffer<T> {
      * Once a {@link TypedPattern} is added to the buffer on the client, the
      * next time a synchronization occurs will be when that {@link Pattern} is
      * sent to the server's master buffer.
+     * @param object the "identifier" of the pattern
      * @param pattern the {@link TypedPattern} to add
      * @return whether or not it was a duplicate entry
      */
-    boolean put(TypedPattern<T> pattern);
+    boolean put(T object, TypedPattern<T> pattern);
 
     /**
      * This method returns a {@link TypedPattern} that matches the provided

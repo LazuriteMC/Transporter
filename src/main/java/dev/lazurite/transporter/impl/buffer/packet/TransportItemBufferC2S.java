@@ -49,7 +49,7 @@ public class TransportItemBufferC2S {
 
         server.execute(() -> {
             NetworkedPatternBuffer<Item> buffer = ((BufferStorage) player.getEntityWorld()).getItemBuffer();
-            patterns.forEach(buffer::put);
+            patterns.forEach(pattern -> buffer.put(pattern.getIdentifier(), pattern));
             PatternBufferEvents.ITEM_BUFFER_UPDATE.invoker().onUpdate(buffer);
         });
     }
@@ -58,7 +58,7 @@ public class TransportItemBufferC2S {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeInt(buffer.size());
 
-        for (TypedPattern<Item> pattern : buffer.getAll()) {
+        for (TypedPattern<Item> pattern : buffer.getAll().values()) {
             buf.writeItemStack(new ItemStack(pattern.getIdentifier()));
             buf.writeInt(pattern.getQuads().size());
 

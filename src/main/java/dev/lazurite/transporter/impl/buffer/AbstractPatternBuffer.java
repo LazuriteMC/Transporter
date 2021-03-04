@@ -1,12 +1,11 @@
 package dev.lazurite.transporter.impl.buffer;
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.api.pattern.TypedPattern;
 import dev.lazurite.transporter.impl.pattern.BufferEntry;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Map;
 
 /**
  * The main implementation of {@link PatternBuffer}. Can't be instantiated
@@ -15,39 +14,21 @@ import java.util.List;
  * @param <T>
  */
 public abstract class AbstractPatternBuffer<T> implements PatternBuffer<T> {
-    protected final List<BufferEntry<T>> patterns = Collections.synchronizedList(Lists.newArrayList());
+    protected final Map<T, TypedPattern<T>> patterns = Maps.newConcurrentMap();
 
     @Override
-    public boolean put(TypedPattern<T> pattern) {
-        if (!patterns.contains((BufferEntry<T>) pattern)) {
-            patterns.removeIf(entry -> entry.getIdentifier().equals(pattern.getIdentifier()));
-            patterns.add((BufferEntry<T>) pattern);
-            return true;
-        }
-
-        return false;
+    public synchronized boolean put(T object, TypedPattern<T> pattern) {
+        return patterns.put(object, (BufferEntry<T>) pattern) != null;
     }
 
     @Override
-    public TypedPattern<T> get(T identifier) {
-        for (BufferEntry<T> pattern : patterns) {
-            if (pattern.getIdentifier().equals(identifier)) {
-                return pattern;
-            }
-        }
-
-        return null;
+    public synchronized TypedPattern<T> get(T identifier) {
+        return patterns.get(identifier);
     }
 
     @Override
-    public boolean contains(T key) {
-        for (TypedPattern<T> pattern : patterns) {
-            if (pattern.getIdentifier().equals(key)) {
-                return true;
-            }
-        }
-
-        return false;
+    public synchronized boolean contains(T key) {
+        return patterns.containsKey(key);
     }
 
     @Override
