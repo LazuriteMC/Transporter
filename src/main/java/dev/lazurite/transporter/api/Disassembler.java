@@ -8,7 +8,9 @@ import dev.lazurite.transporter.impl.pattern.QuadConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -43,6 +45,17 @@ public interface Disassembler {
                 .renderBlock(blockState, blockPos, blockView, transformation, consumer, false, new Random());
 
         return new BufferEntry<>(consumer, blockPos);
+    }
+
+    static TypedPattern<BlockPos> getBlockEntity(BlockEntity blockEntity, BlockRenderView blockView, @Nullable MatrixStack transformation) {
+        if (transformation == null) {
+            transformation = new MatrixStack();
+        }
+
+        QuadConsumer consumer = new QuadConsumer();
+        BlockEntityRenderDispatcher.INSTANCE.get(blockEntity).render(blockEntity, 0, transformation, consumer.asProvider(), 0, 0);
+
+        return new BufferEntry<>(consumer, blockEntity.getPos());
     }
 
     static TypedPattern<Entity> getEntity(Entity entity, @Nullable MatrixStack transformation) {

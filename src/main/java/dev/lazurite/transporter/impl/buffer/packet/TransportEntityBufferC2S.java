@@ -56,7 +56,6 @@ public class TransportEntityBufferC2S {
     public static void send(NetworkedPatternBuffer<Entity> buffer) {
         PacketByteBuf buf = PacketByteBufs.create();
         buf.writeInt(buffer.size());
-        System.out.println("SEND ENTITY");
 
         for (TypedPattern<Entity> pattern : buffer.getAll().values()) {
             buf.writeInt(pattern.getIdentifier().getEntityId());
