@@ -23,8 +23,8 @@ public class NetworkedPatternBuffer<T> extends AbstractPatternBuffer<T> {
      * @return whether or not it was successful or if there was a duplicate
      */
     @Override
-    public boolean put(T object, TypedPattern<T> pattern) {
-        return setDirty(super.put(object, pattern));
+    public boolean put(TypedPattern<T> pattern) {
+        return setDirty(super.put(pattern));
     }
 
     /**

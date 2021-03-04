@@ -48,7 +48,7 @@ public class TransportEntityBufferC2S {
 
         server.execute(() -> {
             NetworkedPatternBuffer<Entity> buffer = ((BufferStorage) player.getEntityWorld()).getEntityBuffer();
-            patterns.forEach(pattern -> buffer.put(pattern.getIdentifier(), pattern));
+            patterns.forEach(buffer::put);
             PatternBufferEvents.ENTITY_BUFFER_UPDATE.invoker().onUpdate(buffer);
         });
     }
