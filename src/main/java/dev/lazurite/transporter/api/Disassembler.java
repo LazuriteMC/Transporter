@@ -47,7 +47,7 @@ public interface Disassembler {
         return new BufferEntry<>(consumer, blockPos);
     }
 
-    static TypedPattern<BlockPos> getBlockEntity(BlockEntity blockEntity, BlockRenderView blockView, @Nullable MatrixStack transformation) {
+    static TypedPattern<BlockPos> getBlockEntity(BlockEntity blockEntity, @Nullable MatrixStack transformation) {
         if (transformation == null) {
             transformation = new MatrixStack();
         }
