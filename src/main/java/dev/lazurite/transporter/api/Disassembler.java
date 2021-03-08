@@ -11,6 +11,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
+import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -19,8 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockRenderView;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 /**
  * The calls in this class are important in that they're necessary
@@ -41,8 +40,9 @@ public interface Disassembler {
         }
 
         QuadConsumer consumer = new QuadConsumer();
-        MinecraftClient.getInstance().getBlockRenderManager()
-                .renderBlock(blockState, blockPos, blockView, transformation, consumer, false, new Random());
+        BakedModel model = MinecraftClient.getInstance().getBlockRenderManager().getModel(blockState);
+        MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer()
+                .render(transformation.peek(), consumer, blockState, model, 0, 0, 0, 0, 0);
 
         return new BufferEntry<>(consumer, blockPos);
     }
