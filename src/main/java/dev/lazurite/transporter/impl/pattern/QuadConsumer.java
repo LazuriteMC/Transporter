@@ -3,7 +3,7 @@ package dev.lazurite.transporter.impl.pattern;
 import com.google.common.collect.Lists;
 import dev.lazurite.transporter.api.Disassembler;
 import dev.lazurite.transporter.api.pattern.Pattern;
-import dev.lazurite.transporter.impl.pattern.part.Quad;
+import dev.lazurite.transporter.impl.pattern.model.Quad;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.render.RenderLayer;
@@ -65,6 +65,16 @@ public class QuadConsumer implements VertexConsumer, Pattern {
             quads.add(new Quad(points));
             points.clear();
         }
+    }
+
+    @Override
+    public void fixedColor(int red, int green, int blue, int alpha) {
+
+    }
+
+    @Override
+    public void unfixColor() {
+
     }
 
     @Override

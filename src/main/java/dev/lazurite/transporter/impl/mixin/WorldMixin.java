@@ -1,11 +1,8 @@
 package dev.lazurite.transporter.impl.mixin;
 
-import dev.lazurite.transporter.api.buffer.BufferStorage;
+import dev.lazurite.transporter.impl.buffer.storage.BufferStorage;
 import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.impl.buffer.NetworkedPatternBuffer;
-import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -16,22 +13,10 @@ import org.spongepowered.asm.mixin.Unique;
  */
 @Mixin(World.class)
 public class WorldMixin implements BufferStorage {
-    @Unique private final NetworkedPatternBuffer<BlockPos> blockBuffer = new NetworkedPatternBuffer<>();
-    @Unique private final NetworkedPatternBuffer<Entity> entityBuffer = new NetworkedPatternBuffer<>();
-    @Unique private final NetworkedPatternBuffer<Item> itemBuffer = new NetworkedPatternBuffer<>();
+    @Unique private final NetworkedPatternBuffer patternBuffer = new NetworkedPatternBuffer();
 
     @Unique @Override
-    public NetworkedPatternBuffer<BlockPos> getBlockBuffer() {
-        return blockBuffer;
-    }
-
-    @Unique @Override
-    public NetworkedPatternBuffer<Entity> getEntityBuffer() {
-        return entityBuffer;
-    }
-
-    @Unique @Override
-    public NetworkedPatternBuffer<Item> getItemBuffer() {
-        return itemBuffer;
+    public NetworkedPatternBuffer getPatternBuffer() {
+        return patternBuffer;
     }
 }

@@ -3,8 +3,9 @@ package dev.lazurite.transporter.impl.buffer;
 import com.google.common.collect.Maps;
 import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.api.pattern.Pattern;
-import dev.lazurite.transporter.api.pattern.TypedPattern;
 import dev.lazurite.transporter.impl.mixin.WorldMixin;
+import dev.lazurite.transporter.impl.pattern.BufferEntry;
+import net.minecraft.util.Identifier;
 
 import java.util.Map;
 
@@ -12,9 +13,8 @@ import java.util.Map;
  * This is the final implementation of {@link PatternBuffer} which is
  * used to store and sync {@link Pattern}s
  * @see WorldMixin
- * @param <T>
  */
-public class NetworkedPatternBuffer<T> extends AbstractPatternBuffer<T> {
+public class NetworkedPatternBuffer extends AbstractPatternBuffer {
     private boolean dirty;
 
     /**
@@ -23,7 +23,7 @@ public class NetworkedPatternBuffer<T> extends AbstractPatternBuffer<T> {
      * @return whether or not it was successful or if there was a duplicate
      */
     @Override
-    public boolean put(TypedPattern<T> pattern) {
+    public boolean put(Pattern pattern) {
         super.put(pattern);
         return setDirty(true);
     }
@@ -32,7 +32,7 @@ public class NetworkedPatternBuffer<T> extends AbstractPatternBuffer<T> {
      * Gets every entry in the buffer.
      * @return the entire buffer
      */
-    public Map<T, TypedPattern<T>> getAll() {
+    public Map<Identifier, BufferEntry> getAll() {
         return Maps.newHashMap(patterns);
     }
 
@@ -52,4 +52,3 @@ public class NetworkedPatternBuffer<T> extends AbstractPatternBuffer<T> {
         return dirty;
     }
 }
-

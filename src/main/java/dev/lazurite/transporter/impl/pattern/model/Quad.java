@@ -1,4 +1,4 @@
-package dev.lazurite.transporter.impl.pattern.part;
+package dev.lazurite.transporter.impl.pattern.model;
 
 import com.google.common.collect.Lists;
 import dev.lazurite.transporter.api.pattern.Pattern;
