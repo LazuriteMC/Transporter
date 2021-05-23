@@ -16,14 +16,14 @@ in mind in order to provide better and more accurate block collisions. As for an
 In order to use Transporter with your mod, you have to put the following in your `build.gradle`:
 ```java
 repositories {
-    maven { url 'https://jitpack.io' }
+    maven { 
+        url 'https://lazurite.dev/releases' 
+    }
 }
         
 dependencies {
-    modImplementation 'com.github.LazuriteMC:Transporter:[version]'
-        
-    // Optional, for jar-in-jar:
-    include 'com.github.LazuriteMC:Transporter:[version]'
+    modImplementation 'dev.lazurite:transporter:[version]'
+    include 'dev.lazurite:transporter:[version]'
 }
 ```
 The latest version can be found under [releases](https://github.com/lazuritemc/transporter/releases). Further documentation on 
