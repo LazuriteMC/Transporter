@@ -86,8 +86,6 @@ publishing {
             credentials {
                 username = project.property("publish.lazurite.alias")
                 password = project.property("publish.lazurite.secret")
-//                username = 'bluevista'
-//                password = 'QhkKG+nOJBY9a8NrZrDeCj1lWF+fa16GKUjiAfgTPYpGVpp3Oz/cjueZVh8TEl5P'
             }
         }
     }
