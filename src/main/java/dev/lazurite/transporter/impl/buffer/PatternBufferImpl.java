@@ -9,17 +9,11 @@ import net.minecraft.util.Identifier;
 import java.util.Map;
 
 /**
- * The main implementation of {@link PatternBuffer}. Can't be instantiated
- * but it contains an implementation of every {@link PatternBuffer} method.
- * @see NetworkedPatternBuffer
+ * The main implementation of {@link PatternBuffer}.
+ * It contains an implementation {@link PatternBuffer}.
  */
-public abstract class AbstractPatternBuffer implements PatternBuffer {
+public class PatternBufferImpl implements PatternBuffer {
     protected final Map<Identifier, BufferEntry> patterns = Maps.newConcurrentMap();
-
-    @Override
-    public boolean put(Pattern pattern) {
-        return patterns.put(((BufferEntry) pattern).getIdentifier(), (BufferEntry) pattern) != null;
-    }
 
     @Override
     public Pattern get(Identifier identifier) {
@@ -34,5 +28,17 @@ public abstract class AbstractPatternBuffer implements PatternBuffer {
     @Override
     public int size() {
         return patterns.size();
+    }
+
+    public void put(Pattern pattern) {
+        patterns.put(((BufferEntry) pattern).getIdentifier(), (BufferEntry) pattern);
+    }
+
+    public void clear() {
+        patterns.clear();
+    }
+
+    public Map<Identifier, BufferEntry> getAll() {
+        return Maps.newHashMap(patterns);
     }
 }

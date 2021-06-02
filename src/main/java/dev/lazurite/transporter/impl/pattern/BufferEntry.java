@@ -2,8 +2,7 @@ package dev.lazurite.transporter.impl.pattern;
 
 import dev.lazurite.transporter.api.Disassembler;
 import dev.lazurite.transporter.api.pattern.Pattern;
-import dev.lazurite.transporter.impl.buffer.AbstractPatternBuffer;
-import dev.lazurite.transporter.impl.buffer.NetworkedPatternBuffer;
+import dev.lazurite.transporter.impl.buffer.PatternBufferImpl;
 import dev.lazurite.transporter.impl.pattern.model.Quad;
 import net.minecraft.util.Identifier;
 
@@ -11,9 +10,8 @@ import java.util.List;
 
 /**
  * The main implementation of {@link Pattern}. This is
- * what is stored within an {@link AbstractPatternBuffer}.
- * @see NetworkedPatternBuffer
- * @see AbstractPatternBuffer
+ * what is stored within a {@link PatternBufferImpl}.
+ * @see PatternBufferImpl
  * @see Disassembler
  */
 public class BufferEntry implements Pattern {

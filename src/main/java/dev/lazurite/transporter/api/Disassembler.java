@@ -2,6 +2,7 @@ package dev.lazurite.transporter.api;
 
 import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.api.pattern.Pattern;
+import dev.lazurite.transporter.impl.pattern.packet.PatternC2S;
 import dev.lazurite.transporter.impl.pattern.BufferEntry;
 import dev.lazurite.transporter.impl.pattern.QuadConsumer;
 import net.fabricmc.api.EnvType;
@@ -38,12 +39,14 @@ public interface Disassembler {
             transformation = new MatrixStack();
         }
 
-        QuadConsumer consumer = new QuadConsumer();
+        var consumer = new QuadConsumer();
         BakedModel model = MinecraftClient.getInstance().getBlockRenderManager().getModel(blockState);
         MinecraftClient.getInstance().getBlockRenderManager().getModelRenderer()
                 .render(transformation.peek(), consumer, blockState, model, 0, 0, 0, 0, 0);
 
-        return new BufferEntry(consumer, Registry.BLOCK.getId(blockState.getBlock()));
+        var entry = new BufferEntry(consumer, Registry.BLOCK.getId(blockState.getBlock()));
+        PatternC2S.send(entry);
+        return entry;
     }
 
     static Pattern getBlockEntity(BlockEntity blockEntity, @Nullable MatrixStack transformation) {
@@ -51,11 +54,13 @@ public interface Disassembler {
             transformation = new MatrixStack();
         }
 
-        QuadConsumer consumer = new QuadConsumer();
+        var consumer = new QuadConsumer();
         MinecraftClient.getInstance().getBlockEntityRenderDispatcher().get(blockEntity)
                 .render(blockEntity, 0, transformation, consumer.asProvider(), 0, 0);
 
-        return new BufferEntry(consumer, Registry.BLOCK_ENTITY_TYPE.getId(blockEntity.getType()));
+        var entry = new BufferEntry(consumer, Registry.BLOCK_ENTITY_TYPE.getId(blockEntity.getType()));
+        PatternC2S.send(entry);
+        return entry;
     }
 
     static Pattern getEntity(Entity entity, @Nullable MatrixStack transformation) {
@@ -63,11 +68,13 @@ public interface Disassembler {
             transformation = new MatrixStack();
         }
 
-        QuadConsumer consumer = new QuadConsumer();
+        var consumer = new QuadConsumer();
         MinecraftClient.getInstance().getEntityRenderDispatcher().getRenderer(entity)
                 .render(entity, 0, 0, transformation, consumer.asProvider(), 0);
 
-        return new BufferEntry(consumer, entity.getType().getLootTableId());
+        var entry = new BufferEntry(consumer, entity.getType().getLootTableId());
+        PatternC2S.send(entry);
+        return entry;
     }
 
     static Pattern getItem(Item item, @Nullable MatrixStack transformation) {
@@ -75,10 +82,12 @@ public interface Disassembler {
             transformation = new MatrixStack();
         }
 
-        QuadConsumer consumer = new QuadConsumer();
+        var consumer = new QuadConsumer();
         MinecraftClient.getInstance().getItemRenderer()
                 .renderItem(new ItemStack(item), ModelTransformation.Mode.GROUND, 0, 0, transformation, consumer.asProvider(), 0);
 
-        return new BufferEntry(consumer, Registry.ITEM.getId(item));
+        var entry = new BufferEntry(consumer, Registry.ITEM.getId(item));
+        PatternC2S.send(entry);
+        return entry;
     }
 }
