@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.pattern.BufferEntry;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;
 
@@ -13,16 +13,16 @@ import java.util.Map;
  * It contains an implementation {@link PatternBuffer}.
  */
 public class PatternBufferImpl implements PatternBuffer {
-    protected final Map<Identifier, BufferEntry> patterns = Maps.newConcurrentMap();
+    protected final Map<ResourceLocation, BufferEntry> patterns = Maps.newConcurrentMap();
 
     @Override
-    public Pattern get(Identifier identifier) {
-        return patterns.get(identifier);
+    public Pattern get(ResourceLocation resourceLocation) {
+        return patterns.get(resourceLocation);
     }
 
     @Override
-    public boolean contains(Identifier identifier) {
-        return patterns.containsKey(identifier);
+    public boolean contains(ResourceLocation resourceLocation) {
+        return patterns.containsKey(resourceLocation);
     }
 
     @Override
@@ -31,14 +31,14 @@ public class PatternBufferImpl implements PatternBuffer {
     }
 
     public void put(Pattern pattern) {
-        patterns.put(((BufferEntry) pattern).getIdentifier(), (BufferEntry) pattern);
+        patterns.put(((BufferEntry) pattern).getResourceLocation(), (BufferEntry) pattern);
     }
 
     public void clear() {
         patterns.clear();
     }
 
-    public Map<Identifier, BufferEntry> getAll() {
+    public Map<ResourceLocation, BufferEntry> getAll() {
         return Maps.newHashMap(patterns);
     }
 }

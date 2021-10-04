@@ -4,7 +4,7 @@ import dev.lazurite.transporter.api.Disassembler;
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.buffer.PatternBufferImpl;
 import dev.lazurite.transporter.impl.pattern.model.Quad;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
 
@@ -16,19 +16,19 @@ import java.util.List;
  */
 public class BufferEntry implements Pattern {
     private final List<Quad> quads;
-    private final Identifier identifier;
+    private final ResourceLocation resourceLocation;
 
-    public  BufferEntry(List<Quad> quads, Identifier identifier) {
+    public  BufferEntry(List<Quad> quads, ResourceLocation resourceLocation) {
         this.quads = quads;
-        this.identifier = identifier;
+        this.resourceLocation = resourceLocation;
     }
 
-    public BufferEntry(Pattern pattern, Identifier identifier) {
-        this(pattern.getQuads(), identifier);
+    public BufferEntry(Pattern pattern, ResourceLocation resourceLocation) {
+        this(pattern.getQuads(), resourceLocation);
     }
 
-    public Identifier getIdentifier() {
-        return this.identifier;
+    public ResourceLocation getResourceLocation() {
+        return this.resourceLocation;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class BufferEntry implements Pattern {
     public boolean equals(Object obj) {
         if (obj instanceof BufferEntry) {
             return ((BufferEntry) obj).getQuads().equals(getQuads()) &&
-                    ((BufferEntry) obj).getIdentifier().equals(getIdentifier());
+                    ((BufferEntry) obj).getResourceLocation().equals(getResourceLocation());
         }
 
         return false;

@@ -1,15 +1,15 @@
 package dev.lazurite.transporter.impl.pattern;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3d;
 import dev.lazurite.transporter.api.Disassembler;
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.pattern.model.Quad;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 
 import java.util.List;
 
@@ -23,11 +23,11 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class QuadConsumer implements VertexConsumer, Pattern {
     private final List<Quad> quads = Lists.newArrayList();
-    private final List<Vec3d> points = Lists.newArrayList();
+    private final List<Vector3d> points = Lists.newArrayList();
 
     @Override
     public VertexConsumer vertex(double x, double y, double z) {
-        points.add(new Vec3d(x, y, z));
+        points.add(new Vector3d(x, y, z));
         return this;
     }
 
@@ -37,22 +37,22 @@ public class QuadConsumer implements VertexConsumer, Pattern {
     }
 
     @Override
-    public VertexConsumer texture(float u, float v) {
+    public VertexConsumer uv(float f, float g) {
         return this;
     }
 
     @Override
-    public VertexConsumer overlay(int u, int v) {
+    public VertexConsumer overlayCoords(int i, int j) {
         return this;
     }
 
     @Override
-    public VertexConsumer light(int u, int v) {
+    public VertexConsumer uv2(int i, int j) {
         return this;
     }
 
     @Override
-    public VertexConsumer normal(float x, float y, float z) {
+    public VertexConsumer normal(float f, float g, float h) {
         return this;
     }
 
@@ -60,7 +60,7 @@ public class QuadConsumer implements VertexConsumer, Pattern {
      * For every four points, create a new {@link Quad} and add it to quads.
      */
     @Override
-    public void next() {
+    public void endVertex() {
         if (points.size() >= 4) {
             quads.add(new Quad(points));
             points.clear();
@@ -68,14 +68,14 @@ public class QuadConsumer implements VertexConsumer, Pattern {
     }
 
     @Override
-    public void fixedColor(int red, int green, int blue, int alpha) {
-
+    public void defaultColor(int i, int j, int k, int l) {
     }
 
     @Override
-    public void unfixColor() {
-
+    public void unsetDefaultColor() {
     }
+
+
 
     @Override
     public List<Quad> getQuads() {
@@ -101,12 +101,12 @@ public class QuadConsumer implements VertexConsumer, Pattern {
     }
 
     /**
-     * In some instances, a {@link VertexConsumerProvider} is required
+     * In some instances, a {@link MultiBufferSource} is required
      * instead of a {@link VertexConsumer}. In this situation, {@link QuadConsumer#asProvider()}
      * can be called and one of these objects will be returned containing the original
      * {@link QuadConsumer}.
      */
-    public static class Provider implements VertexConsumerProvider {
+    private static class Provider implements MultiBufferSource {
         private final QuadConsumer pattern;
 
         public Provider(QuadConsumer pattern) {
@@ -114,7 +114,7 @@ public class QuadConsumer implements VertexConsumer, Pattern {
         }
 
         @Override
-        public VertexConsumer getBuffer(RenderLayer layer) {
+        public VertexConsumer getBuffer(RenderType type) {
             return pattern;
         }
     }

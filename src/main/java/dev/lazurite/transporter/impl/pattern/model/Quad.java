@@ -1,10 +1,10 @@
 package dev.lazurite.transporter.impl.pattern.model;
 
 import com.google.common.collect.Lists;
+import com.mojang.math.Vector3d;
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.pattern.BufferEntry;
-import net.minecraft.network.PacketByteBuf;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.network.FriendlyByteBuf;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,39 +17,39 @@ import java.util.List;
  * @see Pattern
  */
 public class Quad {
-    private final Vec3d p1;
-    private final Vec3d p2;
-    private final Vec3d p3;
-    private final Vec3d p4;
+    private final Vector3d p1;
+    private final Vector3d p2;
+    private final Vector3d p3;
+    private final Vector3d p4;
 
-    public Quad(List<Vec3d> points) {
+    public Quad(List<Vector3d> points) {
         this(points.get(0), points.get(1), points.get(2), points.get(3));
     }
 
-    public Quad(Vec3d p1, Vec3d p2, Vec3d p3, Vec3d p4) {
+    public Quad(Vector3d p1, Vector3d p2, Vector3d p3, Vector3d p4) {
         this.p1 = p1;
         this.p2 = p2;
         this.p3 = p3;
         this.p4 = p4;
     }
 
-    public List<Vec3d> getPoints() {
+    public List<Vector3d> getPoints() {
         return Lists.newArrayList(p1, p2, p3, p4);
     }
 
-    public void serialize(PacketByteBuf buf) {
+    public void serialize(FriendlyByteBuf buf) {
         for (var point : getPoints()) {
-            buf.writeDouble(point.getX());
-            buf.writeDouble(point.getY());
-            buf.writeDouble(point.getZ());
+            buf.writeDouble(point.x);
+            buf.writeDouble(point.y);
+            buf.writeDouble(point.z);
         }
     }
 
-    public static Quad deserialize(PacketByteBuf buf) {
-        var points = new ArrayList<Vec3d>();
+    public static Quad deserialize(FriendlyByteBuf buf) {
+        var points = new ArrayList<Vector3d>();
 
         for (var j = 0; j < 4; j++) {
-            points.add(new Vec3d(buf.readDouble(), buf.readDouble(), buf.readDouble()));
+            points.add(new Vector3d(buf.readDouble(), buf.readDouble(), buf.readDouble()));
         }
 
         return new Quad(points);

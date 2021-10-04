@@ -10,11 +10,11 @@ import dev.lazurite.transporter.impl.pattern.model.Quad;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
-import net.minecraft.network.PacketByteBuf;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.game.ServerGamePacketListener;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.network.ServerPlayNetworkHandler;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.Identifier;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.util.ArrayList;
 
@@ -23,11 +23,11 @@ import java.util.ArrayList;
  * @see PatternBuffer
  */
 public class PatternC2S {
-    public static final Identifier PACKET_ID = new Identifier(Transporter.MODID, "pattern_c2s");
+    public static final ResourceLocation PACKET_ID = new ResourceLocation(Transporter.MODID, "pattern_c2s");
 
-    public static void accept(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler, PacketByteBuf buf, PacketSender sender) {
+    public static void accept(MinecraftServer server, ServerPlayer player, ServerGamePacketListener handler, FriendlyByteBuf buf, PacketSender sender) {
         var quads = new ArrayList<Quad>();
-        var identifier = buf.readIdentifier();
+        var identifier = buf.readResourceLocation();
         var quadCount = buf.readInt();
 
         for (var j = 0; j < quadCount; j++) {
@@ -43,7 +43,7 @@ public class PatternC2S {
 
     public static void send(BufferEntry pattern) {
         var buf = PacketByteBufs.create();
-        buf.writeIdentifier(pattern.getIdentifier());
+        buf.writeResourceLocation(pattern.getResourceLocation());
         buf.writeInt(pattern.getQuads().size());
 
         for (var quad : pattern.getQuads()) {
