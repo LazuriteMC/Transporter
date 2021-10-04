@@ -17,7 +17,7 @@ public class Transporter implements ModInitializer {
     public static final String MODID = "transporter";
     public static final Logger LOGGER = LogManager.getLogger("Transporter");
 
-    private static final PatternBufferImpl patternBuffer = new PatternBufferImpl();
+    private static final PatternBuffer patternBuffer = new PatternBufferImpl();
 
     @Override
     public void onInitialize() {

@@ -24,7 +24,7 @@ public interface PatternBuffer {
      * Similar to the above get method, this method simply returns true if the
      * buffer contains an entry matching the identifier or false if it does not.
      * @param resourceLocation the resource location of the pattern
-     * @return whether or not there exists a matching {@link Pattern} entry
+     * @return whether there exists a matching {@link Pattern} entry
      */
     boolean contains(ResourceLocation resourceLocation);
 
