@@ -2,7 +2,6 @@ package dev.lazurite.transporter.impl.pattern;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3d;
 import dev.lazurite.transporter.api.Disassembler;
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.pattern.model.Quad;
@@ -10,6 +9,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
@@ -23,11 +23,11 @@ import java.util.List;
 @Environment(EnvType.CLIENT)
 public class QuadConsumer implements VertexConsumer, Pattern {
     private final List<Quad> quads = Lists.newArrayList();
-    private final List<Vector3d> points = Lists.newArrayList();
+    private final List<Vec3> points = Lists.newArrayList();
 
     @Override
     public VertexConsumer vertex(double x, double y, double z) {
-        points.add(new Vector3d(x, y, z));
+        points.add(new Vec3(x, y, z));
         return this;
     }
 
