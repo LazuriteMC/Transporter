@@ -5,8 +5,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import dev.lazurite.transporter.api.Disassembler;
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.pattern.model.Quad;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.phys.Vec3;
@@ -20,7 +18,7 @@ import java.util.List;
  * @see Disassembler
  * @see Quad
  */
-@Environment(EnvType.CLIENT)
+//@OnlyIn(Dist.CLIENT) Don't use OnlyIn
 public class QuadConsumer implements VertexConsumer, Pattern {
     private final List<Quad> quads = Lists.newArrayList();
     private final List<Vec3> points = Lists.newArrayList();

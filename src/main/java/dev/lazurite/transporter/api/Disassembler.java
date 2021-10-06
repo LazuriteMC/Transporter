@@ -3,11 +3,9 @@ package dev.lazurite.transporter.api;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.api.pattern.Pattern;
-import dev.lazurite.transporter.impl.pattern.packet.PatternC2S;
 import dev.lazurite.transporter.impl.pattern.BufferEntry;
 import dev.lazurite.transporter.impl.pattern.QuadConsumer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import dev.lazurite.transporter.impl.pattern.packet.PatternC2S;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.core.Registry;
@@ -16,7 +14,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * The calls in this class are important in that they're necessary in order for anything within this library to work.
@@ -24,11 +23,12 @@ import org.jetbrains.annotations.Nullable;
  * <br><br><b>IMPORTANT: This can only be executed on the physical client.</b><br><br>
  * In each of these methods, you have the option to transform the pattern any way you want before it
  * "sets" into a {@link Pattern}. You can do this by passing in a pre-manipulated {@link PoseStack}.
+ *
  * @see PatternBuffer
  * @see Pattern
  * @since 1.0.0
  */
-@Environment(EnvType.CLIENT)
+//@OnlyIn(Dist.Client) Don't use OnlyIn
 public interface Disassembler {
     static Pattern getBlock(BlockState blockState, @Nullable PoseStack transformation) {
         if (transformation == null) {
