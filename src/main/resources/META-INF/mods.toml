@@ -1,21 +1,21 @@
 modLoader="javafml"
 loaderVersion="[37,)"
-license="All rights reserved"
+license=""
 [[mods]]
 modId="transporter"
 version="${file.jarVersion}"
 displayName="Transporter"
-logoFile="examplemod.png"
-credits="Thanks for this example mod goes to Java"
+logoFile="icon.png"
+credits="Original Lazurite team who made Transporter"
 authors="The Lazurite Team"
 description="Beam model info to the server."
-[[dependencies.examplemod]]
+[[dependencies.transporter]]
 modId="forge"
 mandatory=true
 versionRange="[37,)"
 ordering="NONE"
 side="BOTH"
-[[dependencies.examplemod]]
+[[dependencies.transporter]]
 modId="minecraft"
 mandatory=true
 versionRange="[1.17.1,1.18)"
