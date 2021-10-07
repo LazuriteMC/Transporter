@@ -10,6 +10,7 @@ import dev.lazurite.transporter.impl.pattern.model.Quad;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
+import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.game.ServerGamePacketListener;
 import net.minecraft.resources.ResourceLocation;
@@ -26,17 +27,18 @@ public class PatternC2S {
     public static final ResourceLocation PACKET_ID = new ResourceLocation(Transporter.MODID, "pattern_c2s");
 
     public static void accept(MinecraftServer server, ServerPlayer player, ServerGamePacketListener handler, FriendlyByteBuf buf, PacketSender sender) {
-        var quads = new ArrayList<Quad>();
-        var identifier = buf.readResourceLocation();
-        var quadCount = buf.readInt();
+        final var quads = new ArrayList<Quad>();
+        final var identifier = buf.readResourceLocation();
+        final var quadCount = buf.readInt();
+        final var intDirection = buf.readInt();
 
         for (var j = 0; j < quadCount; j++) {
             quads.add(Quad.deserialize(buf));
         }
 
         server.execute(() -> {
-            var buffer = (PatternBufferImpl) Transporter.getPatternBuffer();
-            buffer.put(new BufferEntry(quads, identifier));
+            final var buffer = (PatternBufferImpl) Transporter.getPatternBuffer();
+            buffer.put(new BufferEntry(quads, identifier, intDirection == -1 ? null : Direction.from2DDataValue(intDirection)));
             PatternBufferEvents.PATTERN_BUFFER_UPDATE.invoker().onUpdate(buffer);
         });
     }
@@ -45,6 +47,8 @@ public class PatternC2S {
         var buf = PacketByteBufs.create();
         buf.writeResourceLocation(pattern.getResourceLocation());
         buf.writeInt(pattern.getQuads().size());
+        buf.writeInt(pattern.getDirection().isPresent() ?
+                pattern.getDirection().get().get2DDataValue() : -1);
 
         for (var quad : pattern.getQuads()) {
             quad.serialize(buf);

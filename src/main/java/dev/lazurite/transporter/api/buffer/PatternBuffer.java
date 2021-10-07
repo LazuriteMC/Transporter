@@ -2,6 +2,7 @@ package dev.lazurite.transporter.api.buffer;
 
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.buffer.PatternBufferImpl;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -19,6 +20,16 @@ public interface PatternBuffer {
      * @return the matching {@link Pattern}
      */
     Pattern get(ResourceLocation resourceLocation);
+
+    /**
+     * This method does the same as the above {@link PatternBuffer#get(ResourceLocation)}
+     * but it allows you to specify a direction as well. This only works for blocks
+     * and block entities.
+     * @param resourceLocation the resource location of the pattern
+     * @param direction the matching {@link Pattern}
+     * @return the mathcing {@link Pattern}
+     */
+    Pattern get(ResourceLocation resourceLocation, Direction direction);
 
     /**
      * Similar to the above get method, this method simply returns true if the

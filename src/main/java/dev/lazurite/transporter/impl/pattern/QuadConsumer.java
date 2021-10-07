@@ -75,8 +75,6 @@ public class QuadConsumer implements VertexConsumer, Pattern {
     public void unsetDefaultColor() {
     }
 
-
-
     @Override
     public List<Quad> getQuads() {
         return this.quads;

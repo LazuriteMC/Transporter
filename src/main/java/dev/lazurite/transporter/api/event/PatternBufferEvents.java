@@ -12,7 +12,7 @@ import net.fabricmc.fabric.api.event.EventFactory;
  */
 public final class PatternBufferEvents {
     public static final Event<PatternBufferUpdate> PATTERN_BUFFER_UPDATE = EventFactory.createArrayBacked(PatternBufferUpdate.class, (callbacks) -> (buffer) -> {
-        for (PatternBufferUpdate event : callbacks) {
+        for (var event : callbacks) {
             event.onUpdate(buffer);
         }
     });
