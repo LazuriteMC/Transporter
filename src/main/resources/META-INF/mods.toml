@@ -1,9 +1,9 @@
 modLoader="javafml"
 loaderVersion="[37,)"
-license=""
+license="MIT"
 [[mods]]
 modId="transporter"
-version="${file.jarVersion}"
+version="${version}"
 displayName="Transporter"
 logoFile="icon.png"
 credits="Original Lazurite team who made Transporter"

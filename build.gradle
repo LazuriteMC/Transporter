@@ -73,10 +73,19 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    mavenLocal()
 }
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.17.1-37.0.82'
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -101,11 +110,10 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifact jar
+            artifactId archivesBaseName
         }
     }
     repositories {
-        maven {
-            url "file://${project.projectDir}/mcmodsrepo"
-        }
+        mavenLocal()
     }
 }
