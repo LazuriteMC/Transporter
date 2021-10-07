@@ -4,9 +4,11 @@ import dev.lazurite.transporter.api.Disassembler;
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.buffer.PatternBufferImpl;
 import dev.lazurite.transporter.impl.pattern.model.Quad;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The main implementation of {@link Pattern}. This is
@@ -17,14 +19,24 @@ import java.util.List;
 public class BufferEntry implements Pattern {
     private final List<Quad> quads;
     private final ResourceLocation resourceLocation;
+    private final Direction direction;
 
-    public  BufferEntry(List<Quad> quads, ResourceLocation resourceLocation) {
+    public  BufferEntry(List<Quad> quads, ResourceLocation resourceLocation, Direction direction) {
         this.quads = quads;
         this.resourceLocation = resourceLocation;
+        this.direction = direction;
+    }
+
+    public BufferEntry(Pattern pattern, ResourceLocation resourceLocation, Direction direction) {
+        this(pattern.getQuads(), resourceLocation, direction);
     }
 
     public BufferEntry(Pattern pattern, ResourceLocation resourceLocation) {
-        this(pattern.getQuads(), resourceLocation);
+        this(pattern, resourceLocation, null);
+    }
+
+    public BufferEntry(List<Quad> quads, ResourceLocation resourceLocation) {
+        this(quads, resourceLocation, null);
     }
 
     public ResourceLocation getResourceLocation() {
@@ -34,6 +46,10 @@ public class BufferEntry implements Pattern {
     @Override
     public List<Quad> getQuads() {
         return this.quads;
+    }
+
+    public Optional<Direction> getDirection() {
+        return Optional.ofNullable(this.direction);
     }
 
     @Override

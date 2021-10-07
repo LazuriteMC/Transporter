@@ -46,7 +46,7 @@ public class Quad {
     }
 
     public static Quad deserialize(FriendlyByteBuf buf) {
-        var points = new ArrayList<Vec3>();
+        final var points = new ArrayList<Vec3>();
 
         for (var j = 0; j < 4; j++) {
             points.add(new Vec3(buf.readDouble(), buf.readDouble(), buf.readDouble()));
