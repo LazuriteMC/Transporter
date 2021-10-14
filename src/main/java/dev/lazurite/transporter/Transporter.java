@@ -28,21 +28,11 @@ public class Transporter {
 
     public Transporter(){
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-
-        MinecraftForge.EVENT_BUS.register(this);
     }
 
     public void setup(final FMLCommonSetupEvent event) {
         LOGGER.info("Highly illogical.");
         TransporterPacketHandler.registerPackets();
-        ModList.get().getMods().forEach(modInfo -> {
-            if(modInfo.getModId().equals(MODID)){
-                Map<String, Object> properties = modInfo.getModProperties();
-                properties.keySet().forEach(key -> {
-                    LOGGER.info("key: {} value: {}", key, properties.get(key));
-                });
-            }
-        });
     }
 
     public static PatternBuffer getPatternBuffer() {
