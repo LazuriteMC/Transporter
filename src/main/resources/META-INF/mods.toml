@@ -1,26 +1,27 @@
-modLoader="javafml"
-loaderVersion="[37,)"
-license="MIT"
+modLoader = "javafml"
+loaderVersion = "[37,)"
+license = "MIT"
 [[mods]]
-modId="transporter"
-version="${version}"
-displayName="Transporter"
-logoFile="icon.png"
-credits="Original Lazurite team who made Transporter"
-authors="The Lazurite Team"
-description="Beam model info to the server."
+    modId = "transporter"
+    version = "${version}"
+    displayName = "Transporter"
+    logoFile = "icon.png"
+    credits = "Original Lazurite team who made Transporter"
+    authors = "The Lazurite Team"
+    description = "Beam model info to the server."
+    modproperties = { "rayon.blocks.grass.mass" = 1, "rayon.blocks.grass.friction" = 2 }
 [[dependencies.transporter]]
-modId="forge"
-mandatory=true
-versionRange="[37,)"
-ordering="NONE"
-side="BOTH"
+    modId = "forge"
+    mandatory = true
+    versionRange = "[37,)"
+    ordering = "NONE"
+    side = "BOTH"
 [[dependencies.transporter]]
-modId="minecraft"
-mandatory=true
-versionRange="[1.17.1,1.18)"
-ordering="NONE"
-side="BOTH"
+    modId = "minecraft"
+    mandatory = true
+    versionRange = "[1.17.1,1.18)"
+    ordering = "NONE"
+    side = "BOTH"
 
 #
 # {
