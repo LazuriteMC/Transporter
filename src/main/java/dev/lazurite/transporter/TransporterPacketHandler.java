@@ -6,6 +6,11 @@ import net.minecraftforge.fmllegacy.network.NetworkRegistry;
 import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
 public class TransporterPacketHandler {
+
+    private TransporterPacketHandler(){
+
+    }
+
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(Transporter.MODID, "packet_handler"),

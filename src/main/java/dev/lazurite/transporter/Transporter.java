@@ -1,17 +1,14 @@
 package dev.lazurite.transporter;
 
+import com.jme3.bullet.PhysicsSpace;
 import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.impl.buffer.PatternBufferImpl;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Map;
 
 /**
  * The client and server entrypoint for Transporter. It also
@@ -27,9 +24,13 @@ public class Transporter {
     private static final PatternBuffer patternBuffer = new PatternBufferImpl();
 
     public Transporter(){
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().register(this);
+        PhysicsSpace space = new PhysicsSpace(PhysicsSpace.BroadphaseType.DBVT);
+        LOGGER.info("Creation successful");
+        space.destroy();
     }
 
+    @SubscribeEvent
     public void setup(final FMLCommonSetupEvent event) {
         LOGGER.info("Highly illogical.");
         TransporterPacketHandler.registerPackets();
