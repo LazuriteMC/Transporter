@@ -110,10 +110,11 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             artifact jar
-            artifactId archivesBaseName
         }
     }
     repositories {
-        mavenLocal()
+        maven {
+            url "file://${rootProject.projectDir}/mcmodsrepo"
+        }
     }
 }
