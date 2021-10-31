@@ -1,0 +1,61 @@
+modLoader = "javafml"
+loaderVersion = "[37,)"
+license = "MIT"
+[[mods]]
+    modId = "transporter"
+    version = "${version}"
+    displayName = "Transporter"
+    logoFile = "icon.png"
+    credits = "Original Lazurite team who made Transporter"
+    authors = "The Lazurite Team"
+    description = "Beam model info to the server."
+    modproperties = { "rayon.blocks.grass.mass" = 1, "rayon.blocks.grass.friction" = 2 }
+[[dependencies.transporter]]
+    modId = "forge"
+    mandatory = true
+    versionRange = "[37,)"
+    ordering = "NONE"
+    side = "BOTH"
+[[dependencies.transporter]]
+    modId = "minecraft"
+    mandatory = true
+    versionRange = "[1.17.1,1.18)"
+    ordering = "NONE"
+    side = "BOTH"
+
+#
+# {
+#   "schemaVersion": 1,
+#   "id": "transporter",
+#   "version": "${version}",
+#   "name": "Transporter",
+#   "description": "Beam model info to the server.",
+#   "authors": [ "The Lazurite Team" ],
+#
+#   "contact": {
+#     "homepage": "https://lazurite.dev",
+#     "sources": "https://github.com/lazuritemc/Transporter",
+#     "issues": "https://github.com/LazuriteMC/Transporter/issues"
+#   },
+#
+#   "license": "MIT",
+#   "icon": "assets/transporter/icon.png",
+#   "environment": "*",
+#
+#   "entrypoints": {
+#     "main": [ "dev.lazurite.transporter.Transporter" ]
+#   },
+#
+#   "depends": {
+#     "fabricloader": ">=0.11",
+#     "fabric": "*",
+#     "minecraft": "1.18.x"
+#   },
+#
+#   "custom": {
+#     "modmenu": {
+#       "links": { "modmenu.discord": "https://discord.gg/NNPPHN7b3P" },
+#       "badges": [ "library" ]
+#     }
+#   }
+# }
