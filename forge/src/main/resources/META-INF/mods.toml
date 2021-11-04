@@ -1,0 +1,25 @@
+modLoader = "javafml"
+loaderVersion = "[37,)"
+license = "MIT"
+
+[[mods]]
+modId = "transporter"
+version = "${version}"
+displayName = "Transporter"
+authors = "Lazurite Team"
+description = "Beam model info to the server."
+logoFile = "icon.png"
+
+[[dependencies.transporter]]
+modId = "forge"
+mandatory = true
+versionRange = "[37,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.transporter]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.17.1,)"
+ordering = "NONE"
+side = "BOTH"

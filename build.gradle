@@ -1,119 +1,88 @@
-buildscript {
-    repositories {
-        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
-        maven { url = 'https://maven.minecraftforge.net' }
-        mavenCentral()
+plugins {
+    id 'architectury-plugin' version "$architectury_plugin_version"
+    id 'com.github.johnrengelman.shadow' version "$shadow_version"
+    id 'dev.architectury.loom' version "$loom_version" apply false
+}
+
+architectury {
+    minecraft minecraft_version
+}
+
+allprojects {
+    apply plugin: 'java'
+
+    version mod_version
+    group maven_group
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(16)
+        }
+
+        withSourcesJar()
     }
+}
+
+subprojects {
+    apply plugin: 'dev.architectury.loom'
+    apply plugin: 'architectury-plugin'
+    apply plugin: 'maven-publish'
+
+    archivesBaseName = rootProject.archivesBaseName + '-' + name
+    loom.silentMojangMappingsLicense()
+
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        minecraft "com.mojang:minecraft:$minecraft_version"
+        mappings loom.officialMojangMappings()
     }
-}
 
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
+    if (name != 'common') {
+        apply plugin: 'com.github.johnrengelman.shadow'
+        architectury.platformSetupLoomIde()
+        architectury."$name"()
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
-
-archivesBaseName = project.archives_base_name
-version = project.mod_version
-group = project.maven_group
-
-minecraft {
-    mappings channel: 'official', version: '1.17.1'
-
-    runs {
-        client {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                transporter {
-                    source sourceSets.main
-                }
-            }
+        configurations {
+            common
+            shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+            compileClasspath.extendsFrom common
+            runtimeClasspath.extendsFrom common
         }
 
-        server {
-            workingDirectory project.file('run')
-
-            property 'forge.logging.markers', 'REGISTRIES'
-
-            property 'forge.logging.console.level', 'debug'
-
-            mods {
-                transporter {
-                    source sourceSets.main
-                }
-            }
+        dependencies {
+            common(project(path: ":common", configuration: "namedElements")) { transitive false }
         }
 
-        data {
-            workingDirectory project.file('run')
+        shadowJar {
+            configurations = [project.configurations.shadowCommon]
+        }
 
-            property 'forge.logging.markers', 'REGISTRIES'
+        remapJar {
+            dependsOn shadowJar
+            input.set shadowJar.archiveFile
+        }
 
-            property 'forge.logging.console.level', 'debug'
+        sourcesJar {
+            from project(':common').sourceSets.main.allSource
+        }
 
-            args '--mod', 'transporter', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-
-            mods {
-                transporter {
-                    source sourceSets.main
-                }
+        components.java {
+            withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+                skip()
             }
         }
     }
-}
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+    publishing {
+        repositories {
+            maven {
+                name 'Lazurite'
+                url 'https://lazurite.dev/releases'
 
-repositories {
-    mavenLocal()
-}
-
-dependencies {
-    minecraft 'net.minecraftforge:forge:1.17.1-37.0.82'
-}
-
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("META-INF/mods.toml") {
-        expand "version": project.version
-    }
-}
-
-tasks.withType(JavaCompile).configureEach {
-    it.options.encoding = "UTF-8"
-    it.options.release = 16
-}
-
-java {
-    withSourcesJar()
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(16)
-    }
-}
-
-jar {
-    from("LICENSE") {
-        rename { "${it}_${project.archivesBaseName}"}
-    }
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifact jar
-            artifactId archivesBaseName
+                credentials {
+                    username property('publish.lazurite.alias')
+                    password property('publish.lazurite.secret')
+                }
+            }
         }
-    }
-    repositories {
-        mavenLocal()        
     }
 }
