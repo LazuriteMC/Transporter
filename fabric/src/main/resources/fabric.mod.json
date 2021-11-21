@@ -16,7 +16,9 @@
   "icon": "assets/transporter/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [ "dev.lazurite.transporter.fabric.TransporterFabric" ]
+    "main": [
+      "dev.lazurite.transporter.impl.fabric.TransporterFabric"
+    ]
   },
 
   "depends": {
