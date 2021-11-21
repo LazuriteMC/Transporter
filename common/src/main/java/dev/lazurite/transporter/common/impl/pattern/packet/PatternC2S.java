@@ -5,7 +5,7 @@ import dev.lazurite.transporter.common.impl.Transporter;
 import dev.lazurite.transporter.common.api.pattern.Pattern;
 import dev.lazurite.transporter.common.impl.buffer.PatternBufferImpl;
 import dev.lazurite.transporter.common.api.buffer.PatternBuffer;
-import dev.lazurite.transporter.common.api.event.PatternBufferUpdateEvent;
+import dev.lazurite.transporter.common.api.event.PatternBufferEvents;
 import dev.lazurite.transporter.common.impl.pattern.BufferEntry;
 import dev.lazurite.transporter.common.impl.pattern.model.Quad;
 import net.minecraft.core.Direction;
@@ -32,7 +32,7 @@ public class PatternC2S {
         executor.execute(() -> {
             final var buffer = (PatternBufferImpl) Transporter.getPatternBuffer();
             buffer.put(pattern);
-            PatternBufferUpdateEvent.invokeAll(buffer);
+            PatternBufferEvents.Update.invokeAll(buffer);
         });
     }
 
