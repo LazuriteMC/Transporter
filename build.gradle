@@ -31,6 +31,13 @@ subprojects {
     archivesBaseName = rootProject.archivesBaseName + '-' + name
     loom.silentMojangMappingsLicense()
 
+    repositories {
+        maven {
+            name 'Lazurite'
+            url 'https://lazurite.dev/releases'
+        }
+    }
+
     dependencies {
         minecraft "com.mojang:minecraft:$minecraft_version"
         mappings loom.officialMojangMappings()

@@ -10,6 +10,10 @@ public class TransporterFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         Transporter.init();
-        ServerPlayNetworking.registerGlobalReceiver(PatternC2SFabric.PACKET_ID, (server, player, handler, buf, responseSender) -> PatternC2S.accept(PatternC2S.decode(buf), server));
+        ServerPlayNetworking.registerGlobalReceiver(
+                PatternC2SFabric.PACKET_ID,
+                (server, player, handler, buf, responseSender) ->
+                        PatternC2S.accept(PatternC2S.decode(buf), server)
+        );
     }
 }

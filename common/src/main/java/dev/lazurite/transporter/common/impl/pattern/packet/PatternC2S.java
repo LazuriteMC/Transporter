@@ -32,7 +32,7 @@ public class PatternC2S {
         executor.execute(() -> {
             final var buffer = (PatternBufferImpl) Transporter.getPatternBuffer();
             buffer.put(pattern);
-            PatternBufferEvents.Update.invokeAll(buffer);
+            PatternBufferEvents.BUFFER_UPDATE.invoke(buffer);
         });
     }
 
