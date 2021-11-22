@@ -1,11 +1,11 @@
-package dev.lazurite.transporter.common.api;
+package dev.lazurite.transporter.api;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.lazurite.transporter.common.api.buffer.PatternBuffer;
-import dev.lazurite.transporter.common.api.pattern.Pattern;
-import dev.lazurite.transporter.common.impl.pattern.packet.PatternC2S;
-import dev.lazurite.transporter.common.impl.pattern.BufferEntry;
-import dev.lazurite.transporter.common.impl.pattern.QuadConsumer;
+import dev.lazurite.transporter.api.buffer.PatternBuffer;
+import dev.lazurite.transporter.api.pattern.Pattern;
+import dev.lazurite.transporter.impl.pattern.packet.PatternC2S;
+import dev.lazurite.transporter.impl.pattern.BufferEntry;
+import dev.lazurite.transporter.impl.pattern.QuadConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;

@@ -1,9 +1,9 @@
-package dev.lazurite.transporter.common.impl.pattern;
+package dev.lazurite.transporter.impl.pattern;
 
-import dev.lazurite.transporter.common.api.Disassembler;
-import dev.lazurite.transporter.common.api.pattern.Pattern;
-import dev.lazurite.transporter.common.impl.buffer.PatternBufferImpl;
-import dev.lazurite.transporter.common.impl.pattern.model.Quad;
+import dev.lazurite.transporter.api.Disassembler;
+import dev.lazurite.transporter.api.pattern.Pattern;
+import dev.lazurite.transporter.impl.buffer.PatternBufferImpl;
+import dev.lazurite.transporter.impl.pattern.model.Quad;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 

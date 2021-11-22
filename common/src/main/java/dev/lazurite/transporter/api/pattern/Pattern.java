@@ -1,6 +1,6 @@
-package dev.lazurite.transporter.common.api.pattern;
+package dev.lazurite.transporter.api.pattern;
 
-import dev.lazurite.transporter.common.impl.pattern.model.Quad;
+import dev.lazurite.transporter.impl.pattern.model.Quad;
 
 import java.util.List;
 

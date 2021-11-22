@@ -1,8 +1,8 @@
-package dev.lazurite.transporter.common.api.event;
+package dev.lazurite.transporter.api.event;
 
 import dev.lazurite.toolbox.api.event.Event;
-import dev.lazurite.transporter.common.api.buffer.PatternBuffer;
-import dev.lazurite.transporter.common.impl.pattern.packet.PatternC2S;
+import dev.lazurite.transporter.api.buffer.PatternBuffer;
+import dev.lazurite.transporter.impl.pattern.packet.PatternC2S;
 
 /**
  * An even that is triggered when the server receives new entries for the pattern buffer.

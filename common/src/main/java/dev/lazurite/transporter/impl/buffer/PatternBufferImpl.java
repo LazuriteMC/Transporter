@@ -1,9 +1,9 @@
-package dev.lazurite.transporter.common.impl.buffer;
+package dev.lazurite.transporter.impl.buffer;
 
 import com.google.common.collect.Maps;
-import dev.lazurite.transporter.common.api.buffer.PatternBuffer;
-import dev.lazurite.transporter.common.api.pattern.Pattern;
-import dev.lazurite.transporter.common.impl.pattern.BufferEntry;
+import dev.lazurite.transporter.api.buffer.PatternBuffer;
+import dev.lazurite.transporter.api.pattern.Pattern;
+import dev.lazurite.transporter.impl.pattern.BufferEntry;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 

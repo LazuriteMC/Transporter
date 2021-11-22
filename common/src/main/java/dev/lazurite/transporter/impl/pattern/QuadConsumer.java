@@ -1,10 +1,10 @@
-package dev.lazurite.transporter.common.impl.pattern;
+package dev.lazurite.transporter.impl.pattern;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import dev.lazurite.transporter.common.api.Disassembler;
-import dev.lazurite.transporter.common.api.pattern.Pattern;
-import dev.lazurite.transporter.common.impl.pattern.model.Quad;
+import dev.lazurite.transporter.api.Disassembler;
+import dev.lazurite.transporter.api.pattern.Pattern;
+import dev.lazurite.transporter.impl.pattern.model.Quad;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.MultiBufferSource;

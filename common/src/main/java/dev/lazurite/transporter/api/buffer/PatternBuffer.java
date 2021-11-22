@@ -1,7 +1,7 @@
-package dev.lazurite.transporter.common.api.buffer;
+package dev.lazurite.transporter.api.buffer;
 
-import dev.lazurite.transporter.common.api.pattern.Pattern;
-import dev.lazurite.transporter.common.impl.buffer.PatternBufferImpl;
+import dev.lazurite.transporter.api.pattern.Pattern;
+import dev.lazurite.transporter.impl.buffer.PatternBufferImpl;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 

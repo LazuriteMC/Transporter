@@ -1,7 +1,7 @@
-package dev.lazurite.transporter.common.impl;
+package dev.lazurite.transporter.impl;
 
-import dev.lazurite.transporter.common.api.buffer.PatternBuffer;
-import dev.lazurite.transporter.common.impl.buffer.PatternBufferImpl;
+import dev.lazurite.transporter.api.buffer.PatternBuffer;
+import dev.lazurite.transporter.impl.buffer.PatternBufferImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

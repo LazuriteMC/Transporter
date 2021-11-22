@@ -1,8 +1,8 @@
-package dev.lazurite.transporter.common.impl.pattern.model;
+package dev.lazurite.transporter.impl.pattern.model;
 
 import com.google.common.collect.Lists;
-import dev.lazurite.transporter.common.api.pattern.Pattern;
-import dev.lazurite.transporter.common.impl.pattern.BufferEntry;
+import dev.lazurite.transporter.api.pattern.Pattern;
+import dev.lazurite.transporter.impl.pattern.BufferEntry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
 
