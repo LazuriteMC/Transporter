@@ -4,12 +4,11 @@ import dev.lazurite.transporter.impl.Transporter;
 import dev.lazurite.transporter.impl.pattern.packet.forge.PatternC2SImpl;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fmllegacy.network.NetworkRegistry;
-import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 @Mod(Transporter.MODID)
 public class TransporterForge {
-    // hmmmmmmm
     private static final String PROTOCOL_VERSION = "1";
     public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(Transporter.MODID, "packet_handler"),

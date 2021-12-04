@@ -13,16 +13,14 @@
   },
 
   "license": "MIT",
-  "icon": "assets/transporter/icon.png",
+  "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "dev.lazurite.transporter.impl.fabric.TransporterFabric"
-    ]
+    "main": [ "dev.lazurite.transporter.impl.fabric.TransporterFabric" ]
   },
 
   "depends": {
     "fabricloader": ">=0.12",
-    "minecraft": "1.17.x"
+    "minecraft": ">=1.18"
   }
 }

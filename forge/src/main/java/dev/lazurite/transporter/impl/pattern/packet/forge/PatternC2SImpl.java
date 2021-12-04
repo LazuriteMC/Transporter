@@ -4,8 +4,8 @@ import dev.lazurite.transporter.impl.pattern.BufferEntry;
 import dev.lazurite.transporter.impl.pattern.packet.PatternC2S;
 import dev.lazurite.transporter.impl.forge.TransporterForge;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraftforge.fmllegacy.LogicalSidedProvider;
-import net.minecraftforge.fmllegacy.network.NetworkEvent;
+import net.minecraftforge.common.util.LogicalSidedProvider;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
