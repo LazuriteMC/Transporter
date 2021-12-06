@@ -33,7 +33,11 @@ public class PatternBufferImpl implements PatternBuffer {
     public Pattern get(ResourceLocation resourceLocation, Direction direction) {
         final var entries = patterns.get(resourceLocation);
 
-        for (var entry : entries) {
+        if (entries == null) {
+            return null;
+        }
+
+        for (final var entry : entries) {
             final var directionOptional = entry.getDirection();
 
             if (directionOptional.isPresent() && directionOptional.get() == direction) {
