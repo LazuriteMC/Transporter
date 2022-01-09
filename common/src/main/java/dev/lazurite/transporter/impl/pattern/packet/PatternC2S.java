@@ -8,7 +8,6 @@ import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.api.event.PatternBufferEvents;
 import dev.lazurite.transporter.impl.pattern.BufferEntry;
 import dev.lazurite.transporter.impl.pattern.model.Quad;
-import net.minecraft.core.Direction;
 import net.minecraft.network.FriendlyByteBuf;
 
 import java.util.ArrayList;
@@ -37,10 +36,9 @@ public class PatternC2S {
     }
 
     public static FriendlyByteBuf encode(BufferEntry pattern, FriendlyByteBuf buf) {
-        buf.writeResourceLocation(pattern.getResourceLocation());
+        buf.writeEnum(pattern.getType());
+        buf.writeInt(pattern.getRegistryId());
         buf.writeInt(pattern.getQuads().size());
-        buf.writeInt(pattern.getDirection().isPresent() ?
-                pattern.getDirection().get().get2DDataValue() : -1);
 
         for (final var quad : pattern.getQuads()) {
             quad.serialize(buf);
@@ -51,14 +49,14 @@ public class PatternC2S {
 
     public static BufferEntry decode(FriendlyByteBuf buf) {
         final var quads = new ArrayList<Quad>();
-        final var identifier = buf.readResourceLocation();
+        final var type = buf.readEnum(Pattern.Type.class);
+        final var registryId = buf.readInt();
         final var quadCount = buf.readInt();
-        final var intDirection = buf.readInt();
 
         for (var j = 0; j < quadCount; j++) {
             quads.add(Quad.deserialize(buf));
         }
 
-        return new BufferEntry(quads, identifier, intDirection == -1 ? null : Direction.from2DDataValue(intDirection));
+        return new BufferEntry(quads, type, registryId);
     }
 }

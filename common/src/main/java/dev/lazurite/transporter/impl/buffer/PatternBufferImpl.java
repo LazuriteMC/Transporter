@@ -4,8 +4,6 @@ import com.google.common.collect.Maps;
 import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.pattern.BufferEntry;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,60 +14,56 @@ import java.util.Map;
  * It contains an implementation {@link PatternBuffer}.
  */
 public class PatternBufferImpl implements PatternBuffer {
-    protected final Map<ResourceLocation, List<BufferEntry>> patterns = Maps.newConcurrentMap();
+    protected final Map<Integer, BufferEntry> entityPatterns = Maps.newConcurrentMap();
+    protected final Map<Integer, BufferEntry> itemPatterns = Maps.newConcurrentMap();
+    protected final Map<Integer, BufferEntry> blockPatterns = Maps.newConcurrentMap();
 
     @Override
-    public Pattern get(ResourceLocation resourceLocation) {
-        final var entries = patterns.get(resourceLocation);
-
-        if (entries != null && entries.size() > 0) {
-            return entries.get(0);
-        }
-
-        return null;
+    public Pattern get(Pattern.Type type, int registryId) {
+        return switch (type) {
+            case ENTITY -> entityPatterns.get(registryId);
+            case ITEM -> itemPatterns.get(registryId);
+            case BLOCK -> blockPatterns.get(registryId);
+        };
     }
 
     @Override
-    public Pattern get(ResourceLocation resourceLocation, Direction direction) {
-        final var entries = patterns.get(resourceLocation);
-
-        if (entries == null) {
-            return null;
-        }
-
-        for (final var entry : entries) {
-            final var directionOptional = entry.getDirection();
-
-            if (directionOptional.isPresent() && directionOptional.get() == direction) {
-                return entry;
-            }
-        }
-
-        return null;
-    }
-
-    @Override
-    public boolean contains(ResourceLocation resourceLocation) {
-        return patterns.containsKey(resourceLocation);
+    public boolean contains(Pattern.Type type, int registryId) {
+        return switch (type) {
+            case ENTITY -> entityPatterns.containsKey(registryId);
+            case ITEM -> itemPatterns.containsKey(registryId);
+            case BLOCK -> blockPatterns.containsKey(registryId);
+        };
     }
 
     @Override
     public int size() {
-        return patterns.size();
+        return entityPatterns.size() + itemPatterns.size() + blockPatterns.size();
     }
 
     public void put(Pattern pattern) {
         final var bufferEntry = (BufferEntry) pattern;
-        final var resourceLocation = bufferEntry.getResourceLocation();
-        patterns.computeIfAbsent(resourceLocation, k -> new ArrayList<>());
-        patterns.get(resourceLocation).add(bufferEntry);
+        final var type = bufferEntry.getType();
+        final var registryId = bufferEntry.getRegistryId();
+
+        switch (type) {
+            case ENTITY -> entityPatterns.put(registryId, (BufferEntry) pattern);
+            case ITEM -> itemPatterns.put(registryId, (BufferEntry) pattern);
+            case BLOCK -> blockPatterns.put(registryId, (BufferEntry) pattern);
+        }
     }
 
     public void clear() {
-        patterns.clear();
+        entityPatterns.clear();
+        itemPatterns.clear();
+        blockPatterns.clear();
     }
 
-    public Map<ResourceLocation, List<BufferEntry>> getAll() {
-        return Maps.newHashMap(patterns);
+    public List<BufferEntry> getAll() {
+        final var out = new ArrayList<BufferEntry>();
+        out.addAll(entityPatterns.values());
+        out.addAll(itemPatterns.values());
+        out.addAll(blockPatterns.values());
+        return out;
     }
 }

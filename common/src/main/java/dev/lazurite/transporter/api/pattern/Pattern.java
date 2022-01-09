@@ -10,4 +10,8 @@ import java.util.List;
  */
 public interface Pattern {
     List<Quad> getQuads();
+
+    enum Type {
+        BLOCK, ITEM, ENTITY
+    }
 }

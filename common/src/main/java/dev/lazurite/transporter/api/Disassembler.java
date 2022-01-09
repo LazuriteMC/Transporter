@@ -14,7 +14,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
@@ -38,12 +38,11 @@ public interface Disassembler {
 
         final var consumer = new QuadConsumer();
         final var model = Minecraft.getInstance().getBlockRenderer().getBlockModel(blockState);
-        final var facing = blockState.getOptionalValue(HorizontalDirectionalBlock.FACING);
 
         Minecraft.getInstance().getBlockRenderer().getModelRenderer()
                 .renderModel(transformation.last(), consumer, blockState, model, 0, 0, 0, 0, 0);
 
-        final var entry = new BufferEntry(consumer, Registry.BLOCK.getKey(blockState.getBlock()), facing.orElse(null));
+        final var entry = new BufferEntry(consumer, Pattern.Type.BLOCK, Block.getId(blockState));
         PatternC2S.send(entry);
         return entry;
     }
@@ -55,13 +54,12 @@ public interface Disassembler {
 
         final var consumer = new QuadConsumer();
         final var renderer = Minecraft.getInstance().getBlockEntityRenderDispatcher().getRenderer(blockEntity);
-        final var facing = blockEntity.getBlockState().getOptionalValue(HorizontalDirectionalBlock.FACING);
 
         if (renderer != null) {
             renderer.render(blockEntity, 0, transformation, consumer.asProvider(), 0, 0);
         }
 
-        final var entry = new BufferEntry(consumer, Registry.BLOCK_ENTITY_TYPE.getKey(blockEntity.getType()), facing.orElse(null));
+        final var entry = new BufferEntry(consumer, Pattern.Type.BLOCK, Block.getId(blockEntity.getBlockState()));
         PatternC2S.send(entry);
         return entry;
     }
@@ -75,7 +73,7 @@ public interface Disassembler {
         Minecraft.getInstance().getEntityRenderDispatcher().getRenderer(entity)
                 .render(entity, 0, 0, transformation, consumer.asProvider(), 0);
 
-        final var entry = new BufferEntry(consumer, entity.getType().getDefaultLootTable());
+        final var entry = new BufferEntry(consumer, Pattern.Type.ENTITY, Registry.ENTITY_TYPE.getId(entity.getType()));
         PatternC2S.send(entry);
         return entry;
     }
@@ -89,7 +87,7 @@ public interface Disassembler {
         Minecraft.getInstance().getItemRenderer()
                 .renderStatic(new ItemStack(item), ItemTransforms.TransformType.GROUND, 0, 0, transformation, consumer.asProvider(), 0);
 
-        final var entry = new BufferEntry(consumer, Registry.ITEM.getKey(item));
+        final var entry = new BufferEntry(consumer, Pattern.Type.ITEM, Registry.ITEM.getId(item));
         PatternC2S.send(entry);
         return entry;
     }

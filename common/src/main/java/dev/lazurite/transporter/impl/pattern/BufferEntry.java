@@ -4,11 +4,8 @@ import dev.lazurite.transporter.api.Disassembler;
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.buffer.PatternBufferImpl;
 import dev.lazurite.transporter.impl.pattern.model.Quad;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * The main implementation of {@link Pattern}. This is
@@ -18,29 +15,25 @@ import java.util.Optional;
  */
 public class BufferEntry implements Pattern {
     private final List<Quad> quads;
-    private final ResourceLocation resourceLocation;
-    private final Direction direction;
+    private final Pattern.Type type;
+    private final int registryId;
 
-    public  BufferEntry(List<Quad> quads, ResourceLocation resourceLocation, Direction direction) {
+    public  BufferEntry(List<Quad> quads, Pattern.Type type, int registryId) {
         this.quads = quads;
-        this.resourceLocation = resourceLocation;
-        this.direction = direction;
+        this.type = type;
+        this.registryId = registryId;
     }
 
-    public BufferEntry(Pattern pattern, ResourceLocation resourceLocation, Direction direction) {
-        this(pattern.getQuads(), resourceLocation, direction);
+    public BufferEntry(Pattern pattern, Pattern.Type type, int registryId) {
+        this(pattern.getQuads(), type, registryId);
     }
 
-    public BufferEntry(Pattern pattern, ResourceLocation resourceLocation) {
-        this(pattern, resourceLocation, null);
+    public Pattern.Type getType() {
+        return this.type;
     }
 
-    public BufferEntry(List<Quad> quads, ResourceLocation resourceLocation) {
-        this(quads, resourceLocation, null);
-    }
-
-    public ResourceLocation getResourceLocation() {
-        return this.resourceLocation;
+    public int getRegistryId() {
+        return this.registryId;
     }
 
     @Override
@@ -48,15 +41,11 @@ public class BufferEntry implements Pattern {
         return this.quads;
     }
 
-    public Optional<Direction> getDirection() {
-        return Optional.ofNullable(this.direction);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof BufferEntry) {
             return ((BufferEntry) obj).getQuads().equals(getQuads()) &&
-                    ((BufferEntry) obj).getResourceLocation().equals(getResourceLocation());
+                    ((BufferEntry) obj).getRegistryId() == registryId;
         }
 
         return false;
