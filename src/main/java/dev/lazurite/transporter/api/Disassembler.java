@@ -6,8 +6,6 @@ import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.pattern.packet.PatternC2S;
 import dev.lazurite.transporter.impl.pattern.BufferEntry;
 import dev.lazurite.transporter.impl.pattern.QuadConsumer;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.core.Registry;
@@ -29,7 +27,6 @@ import org.jetbrains.annotations.Nullable;
  * @see Pattern
  * @since 1.0.0
  */
-@Environment(EnvType.CLIENT)
 public interface Disassembler {
     static Pattern getBlock(BlockState blockState, @Nullable PoseStack transformation) {
         if (transformation == null) {

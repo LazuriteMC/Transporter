@@ -20,5 +20,3 @@ pluginManagement {
 }
 
 rootProject.name = 'transporter'
-
-include 'common', 'fabric', 'forge'

@@ -15,9 +15,6 @@
   "license": "MIT",
   "icon": "icon.png",
   "environment": "*",
-  "entrypoints": {
-    "main": [ "dev.lazurite.transporter.impl.fabric.TransporterFabric" ]
-  },
 
   "depends": {
     "fabricloader": ">=0.12",
