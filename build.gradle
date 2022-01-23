@@ -1,12 +1,14 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version "$shadow_version"
+    id 'architectury-plugin' version "$architectury_plugin_version"
     id 'dev.architectury.loom' version "$loom_version"
     id 'maven-publish'
 }
 
-loom.silentMojangMappingsLicense()
 version mod_version
 group maven_group
+
+loom.silentMojangMappingsLicense()
+architectury.common()
 
 java {
     toolchain {
@@ -26,18 +28,24 @@ repositories {
 dependencies {
     minecraft "com.mojang:minecraft:$minecraft_version"
     mappings loom.officialMojangMappings()
-    modApi "dev.lazurite:toolbox:$toolbox_version", { transitive false }
-    annotationProcessor "org.spongepowered:mixin:$mixin_version:processor"
+    modImplementation "net.fabricmc:fabric-loader:$fabric_loader_version"
+    modApi "dev.lazurite:toolbox-fabric:$toolbox_version"
 }
 
+tasks.withType(ProcessResources) {
+    inputs.property "version", version
 
-shadowJar {
-    configurations = [project.configurations.shadow]
+    filesMatching "fabric.mod.json", {
+        expand "version": version
+    }
 }
 
-remapJar {
-    dependsOn shadowJar
-    input.set shadowJar.archiveFile
+transformProductionFabric {
+    archiveClassifier = ''
+}
+
+transformProductionForge {
+    archiveClassifier = ''
 }
 
 publishing {
@@ -54,9 +62,20 @@ publishing {
     }
 
     publications {
-        transporter(MavenPublication) {
-            artifactId = archivesBaseName
-            from components.java
+        forge(MavenPublication) {
+            artifactId = 'transporter-forge'
+
+            artifact (transformProductionForge) {
+                builtBy transformProductionForge
+            }
+        }
+
+        fabric(MavenPublication) {
+            artifactId = 'transporter-fabric'
+
+            artifact (transformProductionFabric) {
+                builtBy transformProductionFabric
+            }
         }
     }
 }
