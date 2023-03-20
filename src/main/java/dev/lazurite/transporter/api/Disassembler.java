@@ -7,10 +7,10 @@ import dev.lazurite.transporter.impl.pattern.packet.PatternC2S;
 import dev.lazurite.transporter.impl.pattern.BufferEntry;
 import dev.lazurite.transporter.impl.pattern.QuadConsumer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -82,7 +82,7 @@ public interface Disassembler {
 
         final var consumer = new QuadConsumer();
         Minecraft.getInstance().getItemRenderer()
-                .renderStatic(new ItemStack(item), ItemTransforms.TransformType.GROUND, 0, 0, transformation, consumer.asProvider(), 0);
+                .renderStatic(new ItemStack(item), ItemDisplayContext.GROUND, 0, 0, transformation, consumer.asProvider(), null, 0);
 
         final var entry = new BufferEntry(consumer, Pattern.Type.ITEM, BuiltInRegistries.ITEM.getId(item));
         PatternC2S.send(entry);
