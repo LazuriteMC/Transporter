@@ -6,7 +6,6 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import dev.lazurite.transporter.api.Disassembler;
 import dev.lazurite.transporter.api.pattern.Pattern;
-import dev.lazurite.transporter.impl.compat.Sodium;
 import dev.lazurite.transporter.impl.pattern.model.Quad;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -29,9 +28,6 @@ public class QuadConsumer extends BufferBuilder implements Pattern {
     protected final List<Vec3> points = new LinkedList<>();
 
     public static QuadConsumer create() {
-        if (Sodium.isInstalled()) {
-            return Sodium.getSodiumCompatibleConsumer();
-        }
         return new QuadConsumer();
     }
 
