@@ -1,22 +1,23 @@
 package dev.lazurite.transporter.impl.buffer;
 
-import com.google.common.collect.Maps;
 import dev.lazurite.transporter.api.buffer.PatternBuffer;
+import dev.lazurite.transporter.api.buffer.ServerPatternBuffer;
 import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.pattern.BufferEntry;
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
- * The main implementation of {@link PatternBuffer}.
- * It contains an implementation {@link PatternBuffer}.
+ * @see PatternBuffer
  */
-public class PatternBufferImpl implements PatternBuffer {
-    protected final Map<Integer, BufferEntry> entityPatterns = Maps.newConcurrentMap();
-    protected final Map<Integer, BufferEntry> itemPatterns = Maps.newConcurrentMap();
-    protected final Map<Integer, BufferEntry> blockPatterns = Maps.newConcurrentMap();
+public class PatternBufferImpl implements ServerPatternBuffer {
+
+    private final Int2ObjectMap<BufferEntry> entityPatterns = new Int2ObjectOpenHashMap<>();
+    private final Int2ObjectMap<BufferEntry> itemPatterns = new Int2ObjectOpenHashMap<>();
+    private final Int2ObjectMap<BufferEntry> blockPatterns = new Int2ObjectOpenHashMap<>();
 
     @Override
     public Pattern get(Pattern.Type type, int registryId) {
@@ -41,29 +42,32 @@ public class PatternBufferImpl implements PatternBuffer {
         return entityPatterns.size() + itemPatterns.size() + blockPatterns.size();
     }
 
+    @Override
     public void put(Pattern pattern) {
-        final var bufferEntry = (BufferEntry) pattern;
-        final var type = bufferEntry.getType();
-        final var registryId = bufferEntry.getRegistryId();
+        var bufferEntry = (BufferEntry) pattern;
+        var registryId = bufferEntry.getRegistryId();
 
-        switch (type) {
+        switch (bufferEntry.getType()) {
             case ENTITY -> entityPatterns.put(registryId, (BufferEntry) pattern);
             case ITEM -> itemPatterns.put(registryId, (BufferEntry) pattern);
             case BLOCK -> blockPatterns.put(registryId, (BufferEntry) pattern);
         }
     }
 
+    @Override
     public void clear() {
         entityPatterns.clear();
         itemPatterns.clear();
         blockPatterns.clear();
     }
 
-    public List<BufferEntry> getAll() {
-        final var out = new ArrayList<BufferEntry>();
+    @Override
+    public List<Pattern> getAll() {
+        var out = new LinkedList<Pattern>();
         out.addAll(entityPatterns.values());
         out.addAll(itemPatterns.values());
         out.addAll(blockPatterns.values());
         return out;
     }
+
 }

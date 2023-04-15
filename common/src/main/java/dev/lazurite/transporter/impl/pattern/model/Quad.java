@@ -17,6 +17,7 @@ import java.util.List;
  * @see Pattern
  */
 public class Quad {
+
     private final Vec3 p1;
     private final Vec3 p2;
     private final Vec3 p3;
@@ -46,21 +47,19 @@ public class Quad {
     }
 
     public static Quad deserialize(FriendlyByteBuf buf) {
-        final var points = new ArrayList<Vec3>();
-
+        var points = new ArrayList<Vec3>();
         for (var j = 0; j < 4; j++) {
             points.add(new Vec3(buf.readDouble(), buf.readDouble(), buf.readDouble()));
         }
-
         return new Quad(points);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Quad) {
-            return ((Quad) obj).getPoints().equals(getPoints());
+        if (obj instanceof Quad quad) {
+            return quad.getPoints().equals(getPoints());
         }
-
         return false;
     }
+
 }

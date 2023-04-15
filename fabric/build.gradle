@@ -26,6 +26,8 @@ dependencies {
     common(project(path: ":common", configuration: "namedElements"))
     shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
     modImplementation "dev.lazurite:toolbox-fabric:$toolbox_version", { transitive false }
+
+    modCompileOnly "com.github.CaffeineMC:sodium-fabric:$sodium_version"
 }
 
 remapJar {

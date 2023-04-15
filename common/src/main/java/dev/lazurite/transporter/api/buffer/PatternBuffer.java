@@ -4,16 +4,14 @@ import dev.lazurite.transporter.api.pattern.Pattern;
 import dev.lazurite.transporter.impl.buffer.PatternBufferImpl;
 
 /**
- * A pattern buffer is a list of {@link Pattern} objects that
- * represent either a block, entity, or item.
+ * A pattern buffer is a list of {@link Pattern} objects that represent either a block, entity, or item.
  * @see PatternBufferImpl
  * @since 1.0.0
  */
 public interface PatternBuffer {
+
     /**
-     * This method returns a {@link Pattern} that matches the provided
-     * identifier. Since no duplicate entries are allowed within the
-     * buffer, this will always yield one result.
+     * Returns a {@link Pattern} that matches the provided identifier. No duplicate entries are allowed.
      * @param type the type of the pattern
      * @param registryId the id found in the type's respective registry
      * @return the matching {@link Pattern}
@@ -34,7 +32,7 @@ public interface PatternBuffer {
     }
 
     /**
-     * Similar to the above get method, this method simply returns true if the
+     * Similar to {@link PatternBuffer#get}, this method simply returns true if the
      * buffer contains an entry matching the identifier or false if it does not.
      * @param type the type of the pattern
      * @param registryId the id found in the type's respective registry
@@ -56,7 +54,6 @@ public interface PatternBuffer {
 
     /**
      * Gets the size of the buffer.
-     * @return the size
      */
     int size();
 }

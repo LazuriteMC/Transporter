@@ -1,18 +1,28 @@
 package dev.lazurite.transporter.impl;
 
-import dev.lazurite.toolbox.api.network.PacketRegistry;
 import dev.lazurite.transporter.api.buffer.PatternBuffer;
 import dev.lazurite.transporter.impl.buffer.PatternBufferImpl;
-import dev.lazurite.transporter.impl.pattern.packet.PatternC2S;
+import dev.lazurite.transporter.impl.pattern.NetworkHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Transporter {
-    private static final PatternBuffer patternBuffer = new PatternBufferImpl();
+
+    public static final String MODID = "transporter";
+    public static final Logger LOGGER = LogManager.getLogger("Transporter");
+
+    private static PatternBuffer BUFFER;
 
     public static void initialize() {
-        PacketRegistry.registerServerbound(PatternC2S.IDENTIFIER, context -> PatternC2S.accept(context.byteBuf()));
+        NetworkHandler.register();
+        LOGGER.info("Beam me up, Scotty!");
     }
 
     public static PatternBuffer getPatternBuffer() {
-        return patternBuffer;
+        if (BUFFER == null) {
+            BUFFER = new PatternBufferImpl();
+        }
+        return BUFFER;
     }
+
 }

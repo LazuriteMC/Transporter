@@ -1,14 +1,19 @@
 package dev.lazurite.transporter.impl.pattern;
 
-import com.google.common.collect.Lists;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import dev.lazurite.transporter.api.Disassembler;
 import dev.lazurite.transporter.api.pattern.Pattern;
+import dev.lazurite.transporter.impl.compat.Sodium;
 import dev.lazurite.transporter.impl.pattern.model.Quad;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,38 +23,26 @@ import java.util.List;
  * @see Disassembler
  * @see Quad
  */
-public class QuadConsumer implements VertexConsumer, Pattern {
-    private final List<Quad> quads = Lists.newArrayList();
-    private final List<Vec3> points = Lists.newArrayList();
+public class QuadConsumer extends BufferBuilder implements Pattern {
+
+    protected final List<Quad> quads = new LinkedList<>();
+    protected final List<Vec3> points = new LinkedList<>();
+
+    public static QuadConsumer create() {
+        if (Sodium.isInstalled()) {
+            return Sodium.getSodiumCompatibleConsumer();
+        }
+        return new QuadConsumer();
+    }
+
+    public QuadConsumer() {
+        super(0x200000);
+        this.begin(VertexFormat.Mode.LINES, DefaultVertexFormat.POSITION);
+    }
 
     @Override
-    public VertexConsumer vertex(double x, double y, double z) {
+    public @NotNull VertexConsumer vertex(double x, double y, double z) {
         points.add(new Vec3(x, y, z));
-        return this;
-    }
-
-    @Override
-    public VertexConsumer color(int red, int green, int blue, int alpha) {
-        return this;
-    }
-
-    @Override
-    public VertexConsumer uv(float f, float g) {
-        return this;
-    }
-
-    @Override
-    public VertexConsumer overlayCoords(int i, int j) {
-        return this;
-    }
-
-    @Override
-    public VertexConsumer uv2(int i, int j) {
-        return this;
-    }
-
-    @Override
-    public VertexConsumer normal(float f, float g, float h) {
         return this;
     }
 
@@ -65,29 +58,15 @@ public class QuadConsumer implements VertexConsumer, Pattern {
     }
 
     @Override
-    public void defaultColor(int i, int j, int k, int l) {
-    }
-
-    @Override
-    public void unsetDefaultColor() {
-    }
-
-    @Override
     public List<Quad> getQuads() {
         return this.quads;
     }
 
-    /**
-     * Simply compares the list of {@link Quad}s to one another.
-     * @param obj the object to compare
-     * @return whether or not the two objects are equivalent
-     */
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof QuadConsumer) {
-            return ((QuadConsumer) obj).getQuads().equals(getQuads());
+        if (obj instanceof QuadConsumer quadConsumer) {
+            return quadConsumer.getQuads().equals(getQuads());
         }
-
         return false;
     }
 
@@ -109,8 +88,9 @@ public class QuadConsumer implements VertexConsumer, Pattern {
         }
 
         @Override
-        public VertexConsumer getBuffer(RenderType type) {
+        public @NotNull VertexConsumer getBuffer(RenderType type) {
             return pattern;
         }
     }
+
 }
