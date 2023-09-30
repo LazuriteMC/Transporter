@@ -2,8 +2,8 @@ package dev.lazurite.transporter.impl.compat.pattern;
 
 import dev.lazurite.transporter.impl.pattern.QuadConsumer;
 import dev.lazurite.transporter.impl.pattern.model.Quad;
-import me.jellysquid.mods.sodium.client.render.vertex.VertexBufferWriter;
-import me.jellysquid.mods.sodium.client.render.vertex.VertexFormatDescription;
+import net.caffeinemc.mods.sodium.api.vertex.buffer.VertexBufferWriter;
+import net.caffeinemc.mods.sodium.api.vertex.format.VertexFormatDescription;
 import net.minecraft.world.phys.Vec3;
 import org.lwjgl.system.MemoryStack;
 import org.lwjgl.system.MemoryUtil;
